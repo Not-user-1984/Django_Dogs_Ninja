@@ -3,12 +3,18 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENV_FILE_PATH = BASE_DIR.parent / 'src' / '.env'
+
 env = environ.Env()
-environ.Env.read_env()
+environ.Env.read_env(ENV_FILE_PATH)
 
 SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = True
+
+# Константы для моделей
+MIN_RATING = env.int('MIN_RATING', default=1)
+MAX_RATING = env.int('MAX_RATING', default=5)
 
 ALLOWED_HOSTS = []
 
@@ -20,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dogs_api',
 ]
 
 MIDDLEWARE = [
@@ -53,9 +60,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,9 +67,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -82,10 +83,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -95,12 +92,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
