@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.db.models import Avg, OuterRef, Subquery, Count
 from ninja import NinjaAPI
 from .models import Dog, Breed
