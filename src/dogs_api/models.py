@@ -11,7 +11,10 @@ class Breed(models.Model):
         ("Large", "Large"),
     ]
 
-    name = models.CharField(max_length=100, verbose_name="Название породы")
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Название породы")
     size = models.CharField(
         max_length=10, choices=SIZE_CHOICES, verbose_name="Размер")
     friendliness = models.IntegerField(
@@ -52,19 +55,24 @@ class Breed(models.Model):
 
 
 class Dog(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Имя собаки")
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Имя собаки"
+    )
     age = models.PositiveIntegerField(verbose_name="Возраст")
     breed = models.ForeignKey(
-        Breed, on_delete=models.CASCADE, verbose_name="Порода")
+        Breed,
+        on_delete=models.CASCADE,
+        verbose_name="Порода")
     gender = models.CharField(max_length=50, verbose_name="Пол")
     color = models.CharField(max_length=50, verbose_name="Цвет")
     favorite_food = models.CharField(
-        max_length=100, verbose_name="Любимая еда"
-        )
+        max_length=100,
+        verbose_name="Любимая еда")
     favorite_toy = models.CharField(
         max_length=100,
-        verbose_name="Любимая игрушка"
-    )
+        verbose_name="Любимая игрушка")
 
     def __str__(self):
         return self.name
