@@ -3,8 +3,9 @@ from rest_framework.routers import DefaultRouter
 from dogs_api.v2.views import BreedViewSet, DogViewSet
 
 router = DefaultRouter()
-router.register(r"breeds", BreedViewSet)
-router.register(r"dogs", DogViewSet)
+
+router.register(r"breeds", BreedViewSet, basename="breed")
+router.register(r"dogs", DogViewSet, basename="dog")
 
 urlpatterns = [
     path("", include(router.urls)),

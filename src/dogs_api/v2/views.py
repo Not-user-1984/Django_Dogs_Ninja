@@ -1,21 +1,46 @@
 from rest_framework import viewsets
-from dogs_api.models import Breed, Dog
+# from rest_framework.response import Response
+# from dogs_api.models import Breed, Dog
 from dogs_api.v2.serializers import BreedSerializer, DogSerializer
-from django.db.models import Avg, Count, OuterRef, Subquery
+from .services import BreedService, DogService
 
 
 class BreedViewSet(viewsets.ModelViewSet):
-    queryset = Breed.objects.annotate(dogs_count=Count("dog"))
+    """
+    ViewSet для работы с породами собак.
+    """
+
     serializer_class = BreedSerializer
+
+    def get_queryset(self):
+        return BreedService.get_queryset()
+
+    def perform_create(self, serializer):
+        BreedService.create_breed(serializer.validated_data)
+
+    def perform_update(self, serializer):
+        BreedService.update_breed(
+            serializer.instance, serializer.validated_data)
+
+    def perform_destroy(self, instance):
+        BreedService.delete_breed(instance)
 
 
 class DogViewSet(viewsets.ModelViewSet):
-    queryset = Dog.objects.annotate(
-        same_breed_count=Count("breed__dog"),
-        breed_avg_age=Subquery(
-            Breed.objects.filter(id=OuterRef("breed_id"))
-            .annotate(avg_age=Avg("dog__age"))
-            .values("avg_age")
-        ),
-    ).select_related("breed")
+    """
+    ViewSet для работы с собаками.
+    """
+
     serializer_class = DogSerializer
+
+    def get_queryset(self):
+        return DogService.get_queryset()
+
+    def perform_create(self, serializer):
+        DogService.create_dog(serializer.validated_data)
+
+    def perform_update(self, serializer):
+        DogService.update_dog(serializer.instance, serializer.validated_data)
+
+    def perform_destroy(self, instance):
+        DogService.delete_dog(instance)
