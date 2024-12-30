@@ -1,10 +1,18 @@
 from ninja import Schema
 from typing import Optional
+from pydantic import ConfigDict
 
 
-class BaseBreedSchema(Schema):
+class BaseSchema(Schema):
+    """Абстрактная базовая схема с общей конфигурацией."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class BaseBreedSchema(BaseSchema):
     """Базовая схема для модели Breed."""
 
+    model_config = ConfigDict(from_attributes=True)
     name: str
     size: str
     friendliness: int
@@ -13,9 +21,9 @@ class BaseBreedSchema(Schema):
     exercise_needs: int
 
 
-class BaseDogSchema(Schema):
+class BaseDogSchema(BaseSchema):
     """Базовая схема для модели Dog."""
-
+    model_config = ConfigDict(from_attributes=True)
     name: str
     age: int
     breed_id: int
@@ -25,26 +33,26 @@ class BaseDogSchema(Schema):
     favorite_toy: str
 
 
-class BreedListSchema(BaseBreedSchema):
+class BreedListSchema(BaseSchema):
     """Схема для списка пород с количеством собак."""
 
     dogs_count: Optional[int] = None
 
 
-class BreedDetailSchema(BaseBreedSchema):
+class BreedDetailSchema(BaseSchema):
     """Схема для детальной информации о породе."""
 
     dogs_count: Optional[int] = None
 
 
-class DogListSchema(BaseDogSchema):
+class DogListSchema(BaseSchema):
     """Схема для списка собак с дополнительной информацией."""
 
     breed: BaseBreedSchema
     breed_avg_age: Optional[float] = None
 
 
-class DogDetailSchema(BaseDogSchema):
+class DogDetailSchema(BaseSchema):
     """Схема для детальной информации о собаке."""
 
     breed: BaseBreedSchema

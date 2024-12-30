@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 # from rest_framework.response import Response
 # from dogs_api.models import Breed, Dog
-from dogs_api.v2.serializers import BreedSerializer, DogSerializer
+from dogs_api.v2.serializers import BreedSerializer, DogSerializer, DogListSerializer,  DogSerializer
 from .services import BreedService, DogService
 
 
@@ -30,8 +30,10 @@ class DogViewSet(viewsets.ModelViewSet):
     """
     ViewSet для работы с собаками.
     """
-
-    serializer_class = DogSerializer
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return DogListSerializer
+        return DogSerializer
 
     def get_queryset(self):
         return DogService.get_queryset()

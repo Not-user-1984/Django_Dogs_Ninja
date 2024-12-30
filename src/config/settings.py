@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,6 +18,7 @@ MIN_RATING = env.int('MIN_RATING', default=1)
 MAX_RATING = env.int('MAX_RATING', default=5)
 
 ALLOWED_HOSTS = []
+
 
 
 INSTALLED_APPS = [
@@ -68,6 +70,22 @@ DATABASES = {
     }
 }
 
+# # Настройки для тестов
+# if os.environ.get("DJANGO_ENV") == "test":
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": ":memory:",
+#         }
+#     }
+#     PASSWORD_HASHERS = [
+#         "django.contrib.auth.hashers.MD5PasswordHasher",
+#     ]
+#     MIDDLEWARE = [
+#         middleware
+#         for middleware in MIDDLEWARE
+#         if middleware != "django.middleware.csrf.CsrfViewMiddleware"
+#     ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
