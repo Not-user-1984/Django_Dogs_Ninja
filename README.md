@@ -19,7 +19,7 @@
 7. [Экспериментальный API (v1)](#экспериментальный-api-v1)
 8. [Тестирование](#тестирование)
 9. [Структура проекта](#структура-проекта)
-10. [Лицензия](#лицензия)
+
 
 ---
 
@@ -45,47 +45,14 @@
 - **pytest** (для тестирования)
 
 ---
-
 ## Установка
 
 1. **Клонируйте репозиторий:**
 
    ```bash
-   git clone https://github.com/yourusername/django-dogs-ninja.git
-   cd django-dogs-ninja
+   git clone git@github.com:Not-user-1984/Django_Dogs_Ninja.git
    ```
 
-
-### С Docker
-
-1. **Соберите и запустите контейнеры:**
-
-   ```bash
-   docker-compose up --build
-   ```
-
-
-### Без Docker
-
-
-2. **Создайте виртуальное окружение:**
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Для Linux/MacOS
-   venv\Scripts\activate     # Для Windows
-   ```
-
-3. **Установите зависимости:**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-
-
-
----
 
 ## Настройка
 
@@ -126,9 +93,31 @@
 
 ---
 
-## Запуск
+### С Docker
 
-**Запустите сервер:**
+1. **Соберите и запустите контейнеры:**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+
+### Без Docker
+
+2. **Создайте виртуальное окружение:**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Для Linux/MacOS
+   venv\Scripts\activate     # Для Windows
+   ```
+
+3. **Установите зависимости:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Запустите сервер::**
 
    ```bash
    python manage.py runserver
