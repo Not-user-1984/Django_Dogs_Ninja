@@ -3,6 +3,7 @@ from faker import Faker
 from dogs_api.models import Breed, Dog
 import random
 
+
 class Command(BaseCommand):
     help = "Генерация фиктивных данных для моделей Breed и Dog"
 
