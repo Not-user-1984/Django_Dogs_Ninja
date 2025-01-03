@@ -22,6 +22,11 @@
 
 
 ---
+## Видео
+
+```
+https://disk.yandex.ru/i/jMu3qiWOJm_glw
+```
 
 ## Описание
 
